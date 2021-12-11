@@ -1,0 +1,18 @@
+{
+  "name": "tdd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jest": "^27.4.4",
+    "mongoose": "^6.1.1",
+    "node-mocks-http": "^1.11.0",
+    "supertest": "^6.1.6"
+  }
+}
