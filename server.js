@@ -21,4 +21,4 @@ app.use((error, req, res, next) => {
 app.listen(PORT);
 console.log(`Running on port ${PORT}`);
 
-// module.exports = app;
+module.exports = app;
