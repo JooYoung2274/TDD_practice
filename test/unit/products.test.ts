@@ -20,6 +20,7 @@ beforeEach(() => {
     // node-mocks-http 추가
     req = httpMocks.createRequest();
     res = httpMocks.createResponse();
+    next = jest.fn();
 });
 
 describe('Product Controller Create', () => {
@@ -45,5 +46,24 @@ describe('Product Controller Create', () => {
     it('should return 201 response status code', async () => {
         await productController.createProduct(req, res, next);
         expect(res.statusCode).toBe(201);
+    });
+
+    // 4. 함수를 실행하면 결과값이 리턴되는지에 대한 테스트 코드 작성
+    it('should return json body in response ', async () => {
+        // @ts-ignore
+        Product.create.mockReturnValue(newProduct);
+        await productController.createProduct(req, res, next);
+        // @ts-ignore
+        expect(res._getJSONData()).toStrictEqual(newProduct);
+    });
+
+    // 5. 에러 발생 시 어떤 메세지가 리턴되는지에 대한 테스트 코드 작성
+    it('should handle errors', async () => {
+        const errorMessage = { message: 'description property missing' };
+        const rejectedPromise = Promise.reject(errorMessage);
+        // @ts-ignore
+        Product.create.mockReturnValue(rejectedPromise);
+        await productController.createProduct(req, res, next);
+        expect(next).toBeCalledWith(errorMessage);
     });
 });

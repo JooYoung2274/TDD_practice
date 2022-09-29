@@ -10,7 +10,11 @@ export class ProductController {
     constructor() {}
 
     async createProduct(req: Request, res: Response, next: NextFunction) {
-        await Product.create(req.body);
-        res.status(201).json();
+        try {
+            const result = await Product.create(req.body);
+            res.status(201).json(result);
+        } catch (err) {
+            next(err);
+        }
     }
 }
