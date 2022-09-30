@@ -15,3 +15,10 @@ it('should return 500 on POST /api/products', async () => {
     console.log(response.body); // 실제 에러 메세지 확인하려고 찍음
     expect(response.body).toStrictEqual({ message: 'Product validation failed: description: Path `description` is required.' });
 });
+
+it('GET /api/products', async () => {
+    const response = await request(app).get('/api/products/kim');
+    expect(response.statusCode).toBe(201);
+    expect(response.body[0].name).toBe('kim');
+    expect(response.body[0].description).toBe('good');
+});

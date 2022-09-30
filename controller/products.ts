@@ -17,4 +17,14 @@ export class ProductController {
             next(err);
         }
     }
+
+    async getProduct(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { name } = req.params;
+            const result = await Product.find({ name: name });
+            res.status(201).json(result);
+        } catch (err) {
+            next(err);
+        }
+    }
 }

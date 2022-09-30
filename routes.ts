@@ -8,7 +8,7 @@ const productController = new ProductController();
 // router.get("/", productController.hello);
 router.post('/products', productController.createProduct);
 
-// router.get('/products', productController.getProducts);
+router.get('/products/:name', productController.getProduct);
 //
 // router.get('/products/:productId', productController.getProductById);
 //

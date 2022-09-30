@@ -9,6 +9,7 @@ import newProduct from '../data/new-product.json';
 import { NextFunction, Request, Response } from 'express';
 
 Product.create = jest.fn(); // mock 함수로 만들어줌. (데이터 베이스는)
+Product.find = jest.fn();
 //이후에 의존성 분리해서 repository layer 로 나누게 되면 mock 사용 안해도 될듯
 
 const productController = new ProductController();
@@ -64,6 +65,42 @@ describe('Product Controller Create', () => {
         // @ts-ignore
         Product.create.mockReturnValue(rejectedPromise);
         await productController.createProduct(req, res, next);
+        expect(next).toBeCalledWith(errorMessage);
+    });
+});
+
+describe('Product Controller Read', () => {
+    beforeEach(() => {
+        req.params = { name: 'kim' };
+    });
+    it('function', () => {
+        expect(typeof productController.getProduct).toBe('function');
+    });
+
+    it('Product.findOne', async () => {
+        await productController.getProduct(req, res, next);
+        expect(Product.find).toBeCalledWith({ name: 'kim' });
+    });
+
+    it('should return 201 response stats code ', async () => {
+        await productController.getProduct(req, res, next);
+        expect(res.statusCode).toBe(201);
+    });
+
+    it('should return json body in response', async () => {
+        // @ts-ignore
+        Product.find.mockReturnValue(newProduct);
+        await productController.getProduct(req, res, next);
+        // @ts-ignore
+        expect(res._getJSONData()).toStrictEqual(newProduct);
+    });
+
+    it('should handle errors ', async () => {
+        const errorMessage = { message: 'description property missing' };
+        const rejectedPromise = Promise.reject(errorMessage);
+        // @ts-ignore
+        Product.find.mockReturnValue(rejectedPromise);
+        await productController.getProduct(req, res, next);
         expect(next).toBeCalledWith(errorMessage);
     });
 });
