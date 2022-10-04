@@ -19,6 +19,7 @@ it('should return 500 on POST /api/products', async () => {
 it('GET /api/products', async () => {
     const response = await request(app).get('/api/products/kim');
     expect(response.statusCode).toBe(201);
-    expect(response.body[0].name).toBe('kim');
+    expect(Array.isArray(response.body)).toBeTruthy();
+    expect(response.body[0].name).toBeDefined(); // toBeDefined()는 리턴값이 있으면 통과시킴
     expect(response.body[0].description).toBe('good');
 });

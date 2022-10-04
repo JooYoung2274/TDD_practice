@@ -27,4 +27,19 @@ export class ProductController {
             next(err);
         }
     }
+
+    async updateProduct(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { name } = req.params;
+            const result = await Product.findOneAndUpdate({ name: name }, { name: 'test' });
+
+            if (!result) {
+                res.status(400).json({ message: 'invalid name' });
+            } else {
+                res.status(201).json(result);
+            }
+        } catch (err) {
+            next(err);
+        }
+    }
 }

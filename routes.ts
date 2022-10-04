@@ -12,6 +12,6 @@ router.get('/products/:name', productController.getProduct);
 //
 // router.get('/products/:productId', productController.getProductById);
 //
-// router.put('/products/:productId', productController.updateProduct);
+router.put('/product/:name', productController.updateProduct);
 
 export default router;
