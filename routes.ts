@@ -1,9 +1,10 @@
 import express from 'express';
 
 const router = express.Router();
-import { ProductController } from './controller/products';
+import { ProductsController } from './controller/products.controller';
+import { Container } from 'typedi';
 
-const productController = new ProductController();
+const productController = Container.get(ProductsController);
 
 // router.get("/", productController.hello);
 router.post('/products', productController.createProduct);
@@ -12,6 +13,6 @@ router.get('/products/:name', productController.getProduct);
 //
 // router.get('/products/:productId', productController.getProductById);
 //
-router.put('/product/:name', productController.updateProduct);
+router.put('/products/:name', productController.updateProduct);
 
 export default router;

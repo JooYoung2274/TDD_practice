@@ -2,7 +2,7 @@
 // 2. 단위 테스트 작성
 // 3. 테스트에 대하응하는 실제 코드 작성
 
-import { ProductController } from '../../controller/products';
+import { ProductsController } from '../../controller/products.controller';
 import { Product } from '../../models/Product';
 import httpMocks from 'node-mocks-http';
 import newProduct from '../data/new-product.json';
@@ -14,7 +14,7 @@ Product.find = jest.fn();
 Product.findOneAndUpdate = jest.fn();
 //이후에 의존성 분리해서 repository layer 로 나누게 되면 mock 사용 안해도 될듯
 
-const productController = new ProductController();
+const productController = new ProductsController();
 
 let req: Request, res: Response, next: NextFunction;
 
@@ -111,7 +111,7 @@ describe('Product Controller Read', () => {
 
 describe('Product Controller Update', () => {
     beforeEach(() => {
-        req.params = { name: 'kim' };
+        req.params = { name: 'test' };
     });
 
     // 1. 함수가 있는지?
@@ -122,11 +122,13 @@ describe('Product Controller Update', () => {
     // 2. Model.Update()가 어떤 값과 함께 불러와지는지
     it('Product.updateOne()', async () => {
         await productController.updateProduct(req, res, next);
-        expect(Product.findOneAndUpdate).toHaveBeenCalledWith(req.params);
+        expect(Product.findOneAndUpdate).toHaveBeenCalledWith(req.params, { name: 'test' });
     });
 
     // 3. 성공 시 201상태코드를 리턴하는지
     it('should return 201 status code', async () => {
+        // @ts-ignore
+        Product.findOneAndUpdate.mockReturnValue(updateProductJson);
         await productController.updateProduct(req, res, next);
         expect(res.statusCode).toBe(201);
         // @ts-ignore
@@ -144,6 +146,8 @@ describe('Product Controller Update', () => {
 
     // 5. invalid name 입력시 400코드 리턴
     it('should return 400 status code', async () => {
+        // @ts-ignore
+        Product.findOneAndUpdate.mockReturnValue(null);
         await productController.updateProduct(req, res, next);
         expect(res.statusCode).toBe(400);
     });
