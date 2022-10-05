@@ -7,6 +7,8 @@
         "@types/supertest": "^2.0.12",
         "@typescript-eslint/eslint-plugin": "^5.13.0",
         "@typescript-eslint/parser": "^5.13.0",
+        "eslint-config-prettier": "^8.4.0",
+        "eslint-plugin-prettier": "^4.0.0",
         "babel-jest": "^29.0.3",
         "eslint": "^8.10.0",
         "express": "^4.17.3",
@@ -26,12 +28,12 @@
         "reflect-metadata": "^0.1.13",
         "supertest": "^6.2.4",
         "ts-jest": "^29.0.2",
-        "typedi": "^0.10.0"
+        "typedi": "^0.8.0"
     },
     "scripts": {
         "test": "jest",
         "start": "node dist/app.js",
         "build": "tsc -p .",
-        "dev": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" app.ts"
+        "dev": "nodemon --watch \\\"src/**/*.ts\\\" --exec \\\"ts-node\\\" src/app.ts"
     }
 }

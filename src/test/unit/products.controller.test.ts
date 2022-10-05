@@ -2,7 +2,7 @@
 // 2. 단위 테스트 작성
 // 3. 테스트에 대하응하는 실제 코드 작성
 
-import { ProductsController } from '../../controller/products.controller';
+import { ProductsController } from '../../products/products.controller';
 import { Product } from '../../models/Product';
 import httpMocks from 'node-mocks-http';
 import newProduct from '../data/new-product.json';

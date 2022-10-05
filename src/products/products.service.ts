@@ -1,9 +1,9 @@
 import { createProductInputDto } from '../DTO/createProduct.input.dto';
-import { ProductsRepository } from '../repository/products.repository';
+import ProductsRepository from './products.repository';
 import { Service } from 'typedi';
 
 @Service()
-export class ProductsService {
+class ProductsService {
     constructor(private productsRepository: ProductsRepository) {}
 
     async createProduct(createProductInputData: createProductInputDto) {
@@ -21,3 +21,5 @@ export class ProductsService {
         return result;
     }
 }
+
+export default ProductsService;

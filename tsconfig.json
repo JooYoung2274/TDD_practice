@@ -1,5 +1,7 @@
 {
     "compilerOptions": {
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
         "target": "es6",
         // 어떤 버전으로 컴파일할지 작성
         "module": "commonjs",
@@ -12,9 +14,8 @@
         //strict 옵션 활성화
         "moduleResolution": "node",
         //모듈 해석 방법 설정: 'node' (Node.js)
-        "resolveJsonModule": true,
         "esModuleInterop": true,
-        "experimentalDecorators": true,
         "jsx": "react"
     }
 }
+

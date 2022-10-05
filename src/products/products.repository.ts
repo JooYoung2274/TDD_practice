@@ -3,7 +3,7 @@ import { Product } from '../models/Product';
 import { Service } from 'typedi';
 
 @Service()
-export class ProductsRepository {
+class ProductsRepository {
     constructor() {}
 
     async createProduct(createProductInputData: createProductInputDto) {
@@ -21,3 +21,5 @@ export class ProductsRepository {
         return result;
     }
 }
+
+export default ProductsRepository;

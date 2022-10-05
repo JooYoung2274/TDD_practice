@@ -2,17 +2,15 @@
 
 // 단위테스트는 몽고디비는 잘된다고 가정하고 진행
 // 통합테스트는 전부 확인해야함
-import 'reflect-metadata';
-import {Product} from '../models/Product';
-import {NextFunction, Request, Response} from 'express';
-import {createProductInputDto} from '../DTO/createProduct.input.dto';
-import {ProductsService} from '../service/products.service';
-import {Service} from 'typedi';
+import { Service } from 'typedi';
+import { Product } from '../models/Product';
+import { NextFunction, Request, Response } from 'express';
+import { createProductInputDto } from '../DTO/createProduct.input.dto';
+import ProductsService from './products.service';
 
 @Service()
-export class ProductsController {
-    constructor(private productsService: ProductsService) {
-    }
+class ProductsController {
+    constructor(private productsService: ProductsService) {}
 
     async createProduct(req: Request, res: Response, next: NextFunction) {
         try {
@@ -26,7 +24,7 @@ export class ProductsController {
 
     async getProduct(req: Request, res: Response, next: NextFunction) {
         try {
-            const {name} = req.params;
+            const { name } = req.params;
             const result = await this.productsService.getProduct(name);
             res.status(201).json(result);
         } catch (err) {
@@ -36,12 +34,11 @@ export class ProductsController {
 
     async updateProduct(req: Request, res: Response, next: NextFunction) {
         try {
-            const {name} = req.params;
+            const { name } = req.params;
             const result = await this.productsService.updateProduct(name);
 
-
             if (!result) {
-                res.status(400).json({message: 'invalid name'});
+                res.status(400).json({ message: 'invalid name' });
             } else {
                 res.status(201).json(result);
             }
@@ -50,3 +47,5 @@ export class ProductsController {
         }
     }
 }
+
+export default ProductsController;
