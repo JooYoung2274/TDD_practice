@@ -2,13 +2,12 @@
 // 2. 단위 테스트 작성
 // 3. 테스트에 대하응하는 실제 코드 작성
 
-import { ProductsController } from '../../products/products.controller';
-import { Product } from '../../models/Product';
+import ProductsController from '../../products/products.controller';
+import {Product} from '../../models/Product';
 import httpMocks from 'node-mocks-http';
-import newProduct from '../data/new-product.json';
-import updateProductJson from '../data/update-product.json';
-import { NextFunction, Request, Response } from 'express';
-import { createProductInputDto } from '../../DTO/createProduct.input.dto';
+
+import {NextFunction, Request, Response} from 'express';
+import {createProductInputDto} from '../../DTO/createProduct.input.dto';
 
 // Product.create = jest.fn(); // mock 함수로 만들어줌. (데이터 베이스는)
 // Product.find = jest.fn();
@@ -26,6 +25,18 @@ beforeEach(() => {
 });
 
 describe('ProductsController', () => {
+    const newProduct = {
+        name: 'kim',
+        description: 'good',
+        price: 15,
+    };
+
+    const updateProductJson = {
+        "name": "test",
+        "description": "good",
+        "price": 15
+    }
+
     const productsService = {
         createProduct: async (createProductInputData: createProductInputDto) => {
             return newProduct;
@@ -52,7 +63,7 @@ describe('ProductsController', () => {
 
     it('createProduct error', async () => {
         productsService.createProduct = jest.fn();
-        const errorMessage = { message: 'description property missing' };
+        const errorMessage = {message: 'description property missing'};
         const rejectedPromise = Promise.reject(errorMessage);
         // @ts-ignore
         productsService.createProduct.mockReturnValue(rejectedPromise);
@@ -69,7 +80,7 @@ describe('ProductsController', () => {
 
     it('getProduct error', async () => {
         productsService.getProduct = jest.fn();
-        const errorMessage = { message: 'description property missing' };
+        const errorMessage = {message: 'description property missing'};
         const rejectedPromise = Promise.reject(errorMessage);
         // @ts-ignore
         productsService.getProduct.mockReturnValue(rejectedPromise);
@@ -86,7 +97,7 @@ describe('ProductsController', () => {
 
     it('updateProduct error', async () => {
         productsService.updateProduct = jest.fn();
-        const errorMessage = { message: 'invalid name' };
+        const errorMessage = {message: 'invalid name'};
         const rejectedPromise = Promise.reject(errorMessage);
         // @ts-ignore
         productsService.updateProduct.mockReturnValue(rejectedPromise);

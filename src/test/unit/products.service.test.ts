@@ -1,8 +1,18 @@
-import { ProductsService } from '../../products/products.service';
-import newProduct from '../data/new-product.json';
-import updateProductJson from '../data/update-product.json';
+import ProductsService from '../../products/products.service';
 
 describe('products Service layer unit test', () => {
+    const newProduct = {
+        name: 'kim',
+        description: 'good',
+        price: 15,
+    };
+
+    const updateProductJson = {
+        name: 'test',
+        description: 'good',
+        price: 15,
+    };
+
     const productsRepository = {
         createProduct: async () => {
             return newProduct;

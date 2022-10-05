@@ -1,6 +1,17 @@
 import request from 'supertest';
 import { app } from '../../app';
-import newProduct from '../data/new-product.json';
+
+const newProduct = {
+    name: 'kim',
+    description: 'good',
+    price: 15,
+};
+
+const updateProductJson = {
+    name: 'test',
+    description: 'good',
+    price: 15,
+};
 
 it('POST /api/products', async () => {
     const response = await request(app).post('/api/products').send(newProduct);
