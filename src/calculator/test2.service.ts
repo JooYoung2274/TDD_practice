@@ -16,6 +16,9 @@ export class TestService {
 
     async getShortfallAndProfitAndRevenue(body: testDto) {
         const shortfall = await this.calculateShortfall(body);
+        const profit = await this.calculateProfit(body);
+        const revenue = await this.calculateRevenue(body);
+        return { shortfall, profit, revenue };
     }
 
     async calculateShortfall(body: testDto) {
@@ -43,5 +46,15 @@ export class TestService {
         return revenue;
     }
 
-    async getProfit() {}
+    async calculateProfit(body: testDto) {
+        const { price } = body;
+        const totalProduction = await this.calculateTotalProduction(body);
+        const revenue = await this.calculateRevenue(body);
+        let totalRevenue: number = 0;
+        for (let i = 0; i < revenue.length; i++) {
+            totalRevenue += revenue[i];
+        }
+        const result = price * totalProduction - totalRevenue;
+        return result;
+    }
 }

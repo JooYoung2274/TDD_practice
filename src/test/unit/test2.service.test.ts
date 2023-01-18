@@ -92,9 +92,19 @@ describe('test Service layer', () => {
         });
 
         describe('3. profit을 구하기 위해선', () => {
-            it('getProfit() is f', () => {
-                expect(typeof testService.getProfit).toBe('function');
+            it('getProfit() is function?', () => {
+                expect(typeof testService.calculateProfit).toBe('function');
             });
+
+            it('-> revenue를 더하고 price * totalProduction - totalRevenue =  profit', async () => {
+                const result = await testService.calculateProfit(body);
+                expect(result).toBe(230);
+            });
+        });
+
+        it('getShortfallAndProfitAndRevenue() result', async () => {
+            const result = await testService.getShortfallAndProfitAndRevenue(body);
+            expect(result).toStrictEqual({ shortfall: 5, profit: 230, revenue: [90, 120, 60] });
         });
     });
 });
