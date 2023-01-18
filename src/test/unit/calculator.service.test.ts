@@ -14,9 +14,9 @@ import { ICalculatorRepository } from '../../calculator/ICalculatorRepository';
 // 4. updateProduction() 특정 생산자 생산량 입력하기
 
 // 1. updateDemand() 수요 입력하기
-// 1-1. 생산자 별 생산량 불러오고 (전체데이터)
+// 1-1. 생산자 전체 데이터 불러오고
 // 1-2. (1-1)에서 불러온 생산자 별 생산량 전부 더하고
-// 1-3. demand - (1-2) 계산하고
+// 1-3. 입력받은 demand - (1-2) 계산하고
 // 1-4. 부족분을 (1-4) 결과로 업데이트 해줌
 // 1-5. 마지막 리턴값은 (1-3) 결과값
 
@@ -80,7 +80,7 @@ describe('calculator service layer', () => {
         //     expect(returned).toBe(getAllProductionReturned);
         // });
 
-        it('1-1. 생산자 별 생산량 불러오고 (생산자 수 만큼)', async () => {
+        it('1-1. 생산자 전체 데이터 불러오고', async () => {
             const returned = await mockCalculatorRepository.getAllProduction();
             expect(returned).toBe(getAllProductionReturned);
         });
