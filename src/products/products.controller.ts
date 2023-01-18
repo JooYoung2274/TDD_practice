@@ -3,7 +3,7 @@
 // 단위테스트는 몽고디비는 잘된다고 가정하고 진행
 // 통합테스트는 전부 확인해야함
 import { Service } from 'typedi';
-import { Product } from '../models/Product';
+// import { Product } from '../models/Product';
 import { NextFunction, Request, Response } from 'express';
 import { createProductInputDto } from '../DTO/createProduct.input.dto';
 import ProductsService from './products.service';
