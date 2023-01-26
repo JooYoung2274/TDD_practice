@@ -1,4 +1,4 @@
 import { TotalData } from '../models/TotalData';
 import { ITestRepository } from './test2.interface';
 
-export class Test1Repository {}
+export class Test2Repository {}
