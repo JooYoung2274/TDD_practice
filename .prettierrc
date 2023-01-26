@@ -2,9 +2,9 @@
     "singleQuote": true,
     "semi": true,
     "useTabs": false,
-    "tabWidth": 4,
+    "tabWidth": 2,
     "trailingComma": "all",
-    "printWidth": 200,
+    "printWidth": 150,
     "endOfLine": "auto",
     "arrowParens": "avoid"
 }

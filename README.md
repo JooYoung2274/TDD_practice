@@ -3,6 +3,7 @@
 - 간단한 CRUD TDD 연습
 
 ### 1. 기술 스택
+
 - Typescript
 - Express
 - Mongoose
@@ -28,3 +29,4 @@ npm test
 - controller, service layer 각각 테스트코드 작성. 최대한 mock 함수를 안쓰고 Di로 구현 하려 함.
 - 하지만 controller layer에서 (req, res, next)와, next(err) 를 통한 에러처리 상황 구현에 mock 함수를 사용함.
 - service layer 에서는 좀 더 복잡한 비지니스 로직을 테스트코드로 작성해 봐야 할 듯.
+
