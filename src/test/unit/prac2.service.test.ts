@@ -53,18 +53,12 @@ describe('getEndData()', () => {
     price: 20,
   };
 
-  it('shortfall(body) 성공했을 때 리턴 값', async () => {
+  it('getEndData(body) 성공했을 때 리턴 값', async () => {
     const returned = await prac2Service.getEndData(body);
     expect(returned).toStrictEqual({
       shortfall: 5,
       profit: 230,
       revenueList: [90, 120, 60],
     });
-  });
-
-  it('shortfall(body) body.demand = 0 일 때 리턴 값', async () => {
-    const body2 = { ...body };
-    body2.demand = 0;
-    const returned = await prac2Service.getEndData(body2);
   });
 });
