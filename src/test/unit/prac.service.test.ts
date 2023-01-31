@@ -1,5 +1,4 @@
 import { IPracRepository } from '../../service/prac.interface';
-import { PracRepository } from '../../service/prac.repository';
 import { PracService } from '../../service/prac.service';
 
 const body = {
