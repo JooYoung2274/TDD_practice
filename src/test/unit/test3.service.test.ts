@@ -1,8 +1,5 @@
 import { instance, mock, when } from 'ts-mockito';
-import { TestService } from '../../calculator/blog.service';
-import { Test1Repository } from '../../calculator/test2.repository';
-import { Test2Repository } from '../../calculator/test2.repository2';
-import { Test3Repository } from '../../calculator/test2.repository3';
+import { Test4Service, TestService } from '../../calculator/blog.service';
 import { Test4Repository } from '../../calculator/test2.repository4';
 
 // mocking 없는 테스트 코드 작성
@@ -27,6 +24,8 @@ class MockTest4Repository {
 
 describe('mocking 없이 가짜객체만 이용한 테스트 코드 작성', () => {
   it('더하기 함수 테스트코드', async () => {
+    //given
+
     const mockTest1Repository = new MockTest1Repository();
     const mockTest2Repository = new MockTest2Repository();
     const mockTest3Repository = new MockTest3Repository();
@@ -34,26 +33,33 @@ describe('mocking 없이 가짜객체만 이용한 테스트 코드 작성', () 
 
     const testService = new TestService(mockTest1Repository, mockTest2Repository, mockTest3Repository, mockTest4Repository);
 
+    // when
     const result = await testService.더하기(2, 3);
+
+    // then
     expect(result).toBe(7);
   });
 });
+
+// mocking을 이용한 테스트 코드 작성.
+// fakeRepo를 만들었을때보다 훨씬 간단하게 테스트 작성이 가능하지만
+// 코드 디자인이 좋은지 나쁜지 판별할 수 없게 만드는 단점이 있음
 
 describe('mocking을 이용한 테스트 코드 작성', () => {
   it('더하기 함수 테스트코드', async () => {
     // given
 
-    const stubTestRepository: Test1Repository = mock(Test1Repository);
-    const stubTest2Repository: Test2Repository = mock(Test2Repository);
-    const stubTest3Repository: Test3Repository = mock(Test3Repository);
+    //// stub => dummy 객체, mocking 객체
+
     const stubTest4Repository: Test4Repository = mock(Test4Repository);
 
     when(await stubTest4Repository.findNumber()).thenReturn(2);
 
+    //// sut => system under test (테스트 대상)
     const sut = new TestService(
-      instance(stubTestRepository),
-      instance(stubTest2Repository),
-      instance(stubTest3Repository),
+      instance(stubTest4Repository),
+      instance(stubTest4Repository),
+      instance(stubTest4Repository),
       instance(stubTest4Repository),
     );
 
@@ -65,19 +71,26 @@ describe('mocking을 이용한 테스트 코드 작성', () => {
   });
 });
 
-describe('mocking + 가짜객체 둘다 활용한 테스트 코드 작성', () => {
-  it('더하기 함수 테스트코드', async () => {
-    // given
-    const mockTest4Repository = new MockTest4Repository();
-    const 데이터베이스에있는숫자 = await mockTest4Repository.findNumber();
-    const testService = mock(TestService);
-    when(await testService.더하기(2, 3)).thenReturn(2 + 3 + 데이터베이스에있는숫자);
+// mocking없이 테스트 코드를 작성해보고
+// 너무 많은 의존성들이 얽혀 있어서 문제가 있다는 것을 알고
+// 디자인 변경 후 테스트 코드 재 작성
 
-    // when
-    const service = instance(testService);
+class MockTestRepository {
+  async updateShortfall(num: number): Promise<boolean> {
+    return true;
+  }
+  async findNumber() {
+    return 2;
+  }
+}
 
-    // then
-    const result = await service.더하기(2, 3);
+describe('코드 디자인 바꾼거', () => {
+  it('df', async () => {
+    const mockTestRepository = new MockTestRepository();
+    const test4Service = new Test4Service(mockTestRepository);
+
+    const result = await test4Service.더하기(2, 3);
+
     expect(result).toBe(7);
   });
 });
