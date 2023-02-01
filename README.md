@@ -1,4 +1,4 @@
-## TDD_practice
+## TDD_practice.
 
 - 간단한 CRUD TDD 연습
 
