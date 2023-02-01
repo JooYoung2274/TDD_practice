@@ -23,10 +23,7 @@ npm install
 npm test
 ```
 
-### 3. 이슈
+### 2023-02-01
 
-- controller, service, repository로 layer를 나누고 typedi를 활용해 IoC와 Di를 구현함.
-- controller, service layer 각각 테스트코드 작성. 최대한 mock 함수를 안쓰고 Di로 구현 하려 함.
-- 하지만 controller layer에서 (req, res, next)와, next(err) 를 통한 에러처리 상황 구현에 mock 함수를 사용함.
-- service layer 에서는 좀 더 복잡한 비지니스 로직을 테스트코드로 작성해 봐야 할 듯.
-
+- 같은 기능에 대한 테스트코드 방법을 바꿔서 작성중
+- ts-mockito 사용한 mocking 방식과 mocking 없이 임의의 class 만들어서 진행하는 방식 구현
