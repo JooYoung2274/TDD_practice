@@ -1,4 +1,5 @@
 import { IPracRepository } from '../../service/prac.interface';
+import { PracRepository } from '../../service/prac.repository';
 import { PracService } from '../../service/prac.service';
 
 const body = {
@@ -40,6 +41,9 @@ const body = {
 
 // 3. revenue list를 구하기 위해선
 // -> producers의 cost * production을 해서 revenue를 구함
+
+// const pracRepository = new PracRepository();
+// const pracService = new PracService(pracRepository);
 
 class FakePracRepository implements IPracRepository {
   async updateShortfall(shortfall: number): Promise<boolean> {
