@@ -66,7 +66,7 @@ describe('getEndDate(body) 테스트 코드 작성', () => {
       expect(returned).toBe(5);
     });
 
-    it('-> producers의 production을 전부 더해서 totalProduction을 구하고', async () => {
+    it('-> producers의 production을 전부 더해서 totalProduction을 구 하고', async () => {
       const returned = await example3Service.calculateTotalProduction(body);
       expect(returned).toBe(25);
     });
