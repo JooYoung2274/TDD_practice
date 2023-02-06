@@ -1,11 +1,11 @@
 export interface ICalculatorRepository {
-    getAllProduction(): Promise<
-        {
-            name: string;
-            cost: number;
-            produciton: number;
-        }[]
-    >;
+  getAllProduction(): Promise<
+    {
+      name: string;
+      cost: number;
+      produciton: number;
+    }[]
+  >;
 
-    updateShortFall(minusResult: number): Promise<boolean>;
+  updateShortFall(minusResult: number): Promise<boolean>;
 }

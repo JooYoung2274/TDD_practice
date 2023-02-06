@@ -3,7 +3,6 @@
 // 마지막에 리팩토링하고 끝
 // 이건 service 계층의 테스트 이기 때문에 service 계층 이외의 모든 계층은 전부 성공한다고 가정함
 
-import { CalculatorRepository } from '../../calculator/calculator.repository';
 import { CalculatorService } from '../../calculator/calculator.service';
 import { ICalculatorRepository } from '../../calculator/ICalculatorRepository';
 
