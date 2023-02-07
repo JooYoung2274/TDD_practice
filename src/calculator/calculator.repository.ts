@@ -11,7 +11,19 @@ export class CalculatorRepository implements ICalculatorRepository {
       produciton: number;
     }[]
   > {
-    return await Producer.find({});
+    await Producer.find({});
+    return [
+      {
+        name: 'string',
+        cost: 0,
+        produciton: 0,
+      },
+      {
+        name: 'string',
+        cost: 0,
+        produciton: 0,
+      },
+    ];
   }
 
   async updateShortFall(minusResult: number): Promise<boolean> {

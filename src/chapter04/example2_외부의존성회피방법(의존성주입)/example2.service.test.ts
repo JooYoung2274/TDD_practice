@@ -1,4 +1,5 @@
 import { IExample2Repository } from './example2.interface';
+import { Example2Repository } from './example2.repository';
 import { Example2Service } from './example2.service';
 
 // const example2Repository = new Example2Repository();

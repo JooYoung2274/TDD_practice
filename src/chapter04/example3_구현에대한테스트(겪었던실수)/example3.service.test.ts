@@ -50,12 +50,12 @@ class FakeExample3Repository implements IExample3Repository {
 const fakeExample3Repository = new FakeExample3Repository();
 const example3Service = new Example3Service(fakeExample3Repository);
 
-describe('getEndDate(body) 테스트 코드 작성', () => {
-  it('getEndDate(body) is function ?????????', () => {
+describe('getEndData(body) 테스트 코드 작성', () => {
+  it('getEndData(body) is function ?????????', () => {
     expect(typeof example3Service.getEndData).toBe('function');
   });
 
-  it('getEndDate(body) return ?', async () => {
+  it('getEndData(body) return ?', async () => {
     const result = await example3Service.getEndData(body);
     expect(result).toStrictEqual({ shortfall: 5, profit: 230, revenueList: [90, 120, 60] });
   });
@@ -66,7 +66,7 @@ describe('getEndDate(body) 테스트 코드 작성', () => {
       expect(returned).toBe(5);
     });
 
-    it('-> producers의 production을 전부 더해서 totalProduction을 구 하고', async () => {
+    it('-> producers의 production을 전부 더해서 totalProduction을 구하고', async () => {
       const returned = await example3Service.calculateTotalProduction(body);
       expect(returned).toBe(25);
     });
