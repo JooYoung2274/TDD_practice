@@ -1,5 +1,5 @@
-import { IPracRepository } from '../../service/prac.interface';
-import { PracService } from '../../service/prac.service';
+import { IExample3Repository } from './example3.interface';
+import { Example3Service } from './example3.service';
 
 const body = {
   name: 'Asia',
@@ -41,58 +41,58 @@ const body = {
 // 3. revenue list를 구하기 위해선
 // -> producers의 cost * production을 해서 revenue를 구함
 
-class FakePracRepository implements IPracRepository {
+class FakeExample3Repository implements IExample3Repository {
   async updateShortfall(shortfall: number): Promise<boolean> {
     return true;
   }
 }
 
-const fakePracRepository = new FakePracRepository();
-const pracService = new PracService(fakePracRepository);
+const fakeExample3Repository = new FakeExample3Repository();
+const example3Service = new Example3Service(fakeExample3Repository);
 
-describe('getEndDate(body) 테스트 코드 작성', () => {
-  it('getEndDate(body) is function ?????????', () => {
-    expect(typeof pracService.getEndDate).toBe('function');
+describe('getEndData(body) 테스트 코드 작성', () => {
+  it('getEndData(body) is function ?????????', () => {
+    expect(typeof example3Service.getEndData).toBe('function');
   });
 
-  it('getEndDate(body) return ?', async () => {
-    const result = await pracService.getEndDate(body);
+  it('getEndData(body) return ?', async () => {
+    const result = await example3Service.getEndData(body);
     expect(result).toStrictEqual({ shortfall: 5, profit: 230, revenueList: [90, 120, 60] });
   });
 
   describe('1. shortfall을 구하기 위해서...', () => {
     it('-> demand - totalProduction을 해서 shortfall을 구하고', async () => {
-      const returned = await pracService.calculateShortfall(body);
+      const returned = await example3Service.calculateShortfall(body);
       expect(returned).toBe(5);
     });
 
     it('-> producers의 production을 전부 더해서 totalProduction을 구하고', async () => {
-      const returned = await pracService.calculateTotalProduction(body);
+      const returned = await example3Service.calculateTotalProduction(body);
       expect(returned).toBe(25);
     });
 
     it('-> shortfall을 db에 저장 (Repository layer의 역할)', async () => {
-      const shortfall = await pracService.calculateShortfall(body);
-      const returned = await fakePracRepository.updateShortfall(shortfall);
+      const shortfall = await example3Service.calculateShortfall(body);
+      const returned = await fakeExample3Repository.updateShortfall(shortfall);
       expect(returned).toBe(true);
     });
   });
 
   describe('2. profit을 구하기 위해선...', () => {
     it('-> totalPrice - totalRevenue로 profit을 구하고', async () => {
-      const returned = await pracService.calculateProfit(body);
+      const returned = await example3Service.calculateProfit(body);
       expect(returned).toBe(230);
     });
 
     it('-> producers의 revenue를 전부 더해서 totalRevenue를 구하고', async () => {
-      const returned = await pracService.calculateTotalRevenue(body);
+      const returned = await example3Service.calculateTotalRevenue(body);
       expect(returned).toBe(270);
     });
   });
 
   describe('3. revenue list를 구하기 위해선', () => {
     it('-> producers의 cost * production을 해서 revenue를 구함', async () => {
-      const returned = await pracService.calculateRevenueList(body);
+      const returned = await example3Service.calculateRevenueList(body);
       expect(returned).toStrictEqual([90, 120, 60]);
     });
   });
