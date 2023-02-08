@@ -18,12 +18,13 @@ interface outputDto {
 }
 
 export class Example3Service {
-  constructor(private example3Repository: Example3Repository) {}
+  constructor(private _example3Repository: Example3Repository) {}
 
   async getEndData(body: inputDto): Promise<outputDto> {
     const shortfall: number = await this.calculateShortfall(body);
     const profit: number = await this.calculateProfit(body);
     const revenueList: number[] = await this.calculateRevenueList(body);
+    await this._example3Repository.updateShortfall(shortfall);
     return { shortfall, profit, revenueList };
   }
 
