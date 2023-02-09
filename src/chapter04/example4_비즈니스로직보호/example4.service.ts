@@ -1,6 +1,6 @@
 import { Example4Repository } from './example4.repository';
 
-interface inputDto {
+interface InputDto {
   name: string;
   producers: {
     name: string;
@@ -11,16 +11,16 @@ interface inputDto {
   price: number;
 }
 
-interface outputDto {
+interface OutputDto {
   shortfall: number;
   profit: number;
   revenueList: number[];
 }
 
 export class Example4Service {
-  constructor(private example4Repository: Example4Repository) {}
+  constructor(private _example4Repository: Example4Repository) {}
 
-  // async getEndData(body: inputDto): Promise<outputDto> {
+  // async getEndData(body: InputDto): Promise<OutputDto> {
   //   const { producers } = body;
   //   let totalProduction: number = 0;
   //   let totalRevenue: number = 0;
@@ -33,57 +33,57 @@ export class Example4Service {
   //   const shortfall = body.demand - totalProduction;
   //   const profit = body.price * totalProduction - totalRevenue;
 
-  //   await this.example4Repository.saveShortfall(shortfall);
-  //   await this.example4Repository.saveProfit(profit);
+  //   await this._example4Repository.saveShortfall(shortfall);
+  //   await this._example4Repository.saveProfit(profit);
 
   //   return { shortfall, profit, revenueList };
   // }
 
-  async getEndData(body: inputDto): Promise<outputDto> {
+  async getEndData(body: InputDto): Promise<OutputDto> {
     const shortfall: number = await this.calculateShortfall(body);
     const profit: number = await this.calculateProfit(body);
     const revenueList: number[] = await this.calculateRevenueList(body);
 
-    await this.example4Repository.saveShortfall(shortfall);
-    await this.example4Repository.saveProfit(profit);
+    await this._example4Repository.saveShortfall(shortfall);
+    await this._example4Repository.saveProfit(profit);
     return { shortfall, profit, revenueList };
   }
 
-  async calculateTotalProduction(body: inputDto): Promise<number> {
+  async calculateTotalProduction(body: InputDto): Promise<number> {
     const { producers } = body;
     let totalProduction: number = 0;
-    for (let i = 0; i < producers.length; i++) {
-      totalProduction += producers[i].production;
+    for (const element of producers) {
+      totalProduction += element.production;
     }
     return totalProduction;
   }
 
-  async calculateShortfall(body: inputDto): Promise<number> {
+  async calculateShortfall(body: InputDto): Promise<number> {
     const totalProduction = await this.calculateTotalProduction(body);
 
     return body.demand - totalProduction;
   }
 
-  async calculateProfit(body: inputDto): Promise<number> {
+  async calculateProfit(body: InputDto): Promise<number> {
     const totalProduction = await this.calculateTotalProduction(body);
     const totalRevenue = await this.calculateTotalRevenue(body);
     return body.price * totalProduction - totalRevenue;
   }
 
-  async calculateTotalRevenue(body: inputDto): Promise<number> {
+  async calculateTotalRevenue(body: InputDto): Promise<number> {
     const { producers } = body;
     let totalRevenue: number = 0;
-    for (let i = 0; i < producers.length; i++) {
-      totalRevenue += producers[i].cost * producers[i].production;
+    for (const element of producers) {
+      totalRevenue += element.cost * element.production;
     }
     return totalRevenue;
   }
 
-  async calculateRevenueList(body: inputDto): Promise<number[]> {
+  async calculateRevenueList(body: InputDto): Promise<number[]> {
     const { producers } = body;
     let revenueList: number[] = [];
-    for (let i = 0; i < producers.length; i++) {
-      revenueList.push(producers[i].cost * producers[i].production);
+    for (const element of producers) {
+      revenueList.push(element.cost * element.production);
     }
     return revenueList;
   }
