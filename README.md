@@ -36,4 +36,4 @@ npm test
 
 - 사내 세미나 발표 끝
 - 발표자료에 대한 내용은 아래 링크에 있음
-- [발표자료 링크](https://simba.molmz.xyz/19)
+- [발표자료 링크](https://joorrr.tistory.com/19)
